@@ -722,6 +722,86 @@ Telnet is a network protocol and command-line tool used to connect to remote sys
 
 ------------------------
 
+----------------------------------------------------------
+
+DATE: 26 DEC 25
+
+
+
+NETSTAT 
+
+The netstat command is a networking tool used to display network connections, routing tables, interface statistics, and more.
+  netstat - an 
+
+
+  
+----------------------------------------------------------
+GREP:
+
+grep -i "madhu" linuxfile
+
+grep -iR "madhu"
+
+----------------------------------------------------------
+ps --> running processes on a system. It provides a snapshot of the currently active processes, including details like process IDs (PIDs), memory usage, CPU time, and more.
+
+ps -ef 
+Shows processes for all users, not just the current session.
+
+
+ps -ef | grep tomcat 
+
+
+kill -9 pid 
+
+
+----------------------------------------------------------
+
+find / -name <fname/dirname> 
+
+find / -name docker -type f
+find / -name docker -type 
+
+========================================================
+
+sed command --> sed 's/madhu/batch17/' test > test2
+
+Replaces occurrences of a pattern with a specified replacement.
+Syntax: s/pattern/replacement/flags
+
+sed 's/madhu/kiran/' input.txt     # Replace first occurrence of 'madhu' with 'madhumadhu' in each line
+sed 's/madhu/kiran/g' input.txt    # Replace all occurrences of 'madhu' with 'madhumadhu' in each line
+sed 's/madhu/kiran/2' input.txt    # Replace the second occurrence of ''madhu' with 'madhumadhu' in each line
+
+
+sed 's/userstanga/madhustanga/' jenkins
+sed 's/userstanga/madhustanga/' jenkins  > jenkins2file
+
+
+sed 's/yum/apt/g' jenkins 
+
+========================================================
+lsblk 
+
+
+=========================================================
+
+df ( disk filesystem)  -
+          It is used to report file system disk space usage, showing how much space is used and available on mounted file systems.
+
+
+df -h 
+df -m 
+
+In Windows, drives such as C:, D:, and E: are logical designations assigned to storage devices or partitions. Each drive letter represents a separate filesystem namespace, allowing users and applications to access files and directories on that specific storage unit. 
+
+
+In Linux, the concept of drive letters like C:, D:, and E: does not exist. Instead, Linux uses a single hierarchical directory structure that begins at the root directory (/). All storage devices, partitions, and network filesystems are integrated into this hierarchy by mounting them at specific directories
+
+
+df 
+df -h
+df -m 
 
 
 
