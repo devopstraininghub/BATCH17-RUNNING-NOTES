@@ -1,0 +1,346 @@
+SHELL SCRIPT :
+
+
+[root@linux opt]# cat ./devopesenginner.sh
+
+
+#!/bin/bash
+
+
+
+echo "Enter the DevOps engineer Name:"
+read Name
+mkdir $Name
+cd $Name
+touch linux
+touch jenkins
+touch ansible
+touch k8s
+mkdir aws
+cd aws
+touch ec2
+touch efs
+touch eks
+touch route53
+touch s3
+
+
+[root@linux opt]#
+===========================================================
+5 JAN 2026:
+
+WHAT IS SHELL SCRIPT & WHY SHELL SCRIPT ?
+
+A shell script is a file with a set of shell commands , for Automation of Repetetive tasks . (extention with .sh ) 
+
+What is a variable ?
+
+a variable is a charecter string to which we assign a value. The value assigned could be a number , text , filename , device or any other type of Data .  Simply its a pointer / reference to actual data .
+
+
+SHELL SCRIPTING  FOR   AUTOMATION & TO MINIMIZE REPETETIVE TASKS 
+
+===================================
+HASH-BANG  OR SHEBANG
+
+#!/bin/bash
+#!/bin/sh
+#!/bin/dash
+
+
+The shebang line, 
+starts with #! followed by the path to the interpreter that should be used to execute the script. 
+
+
+
+===========================
+
+vim jenkinssetup.sh
+
+#!/bin/bash
+
+ cat jenkinssetup.sh
+#!/bin/bash
+
+##################
+###  Author : Madhukiran
+#### Date: 5 JAN 2026
+#### Version : V1
+#### Purpose: To setup Jenkins
+
+sudo yum update –y
+sudo wget -O /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade
+sudo yum install java-21-amazon-corretto -y
+sudo yum install jenkins -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+==========================================================
+
+vim tomcatsetup.sh
+
+
+#!/bin/bash
+
+
+#############################
+#    SCRIPT DATA:
+# AUTHOR: MADHU
+#
+
+cd /opt
+yum install java -y
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.113/bin/apache-tomcat-9.0.113.tar.gz
+tar -xvf /opt/apache-tomcat-9.0.113.tar.gz
+/opt/apache-tomcat-9.0.113/bin/startup.sh
+
+
+
+==========================================================
+
+set -x ---> debug mode 
+
+bash -x devopsengineer.sh
+
+set -e  ( Exit on error) 
+====================================================
+
+COMMAND LINE ARGUMENTS:
+
+ cat test.sh
+
+
+#!/bin/bash
+
+#set -x
+
+echo "script Name: $0"
+echo "FIRST Name: $1"
+echo "second Argument: $2"
+
+============================
+
+[root@linux opt]# cat devopsengineer_CLA.sh
+#!/bin/bash
+
+##########################
+# NAME : devops engineer profile setup
+# Date: 5 jan 2025
+# Author: Madhukiran
+# Version: v1
+###########################################
+
+set -x
+set -e
+
+#echo "Enter the DevOps engineer Name:"
+#read Name
+mkdir $1
+cd $1
+touch linux
+touch jenkins
+touch ansible
+touch k8s
+mkdir aws
+cd aws
+touch ec2
+touch efs
+touch eks
+touch route53
+touch s3
+========================================================================
+
+DATE: 6 JAN 25
+
+==================================================
+
+Debugging / Troubleshooting :
+ 
+
+set -x  
+    Turn on debugging.prints each command before it is executed.
+
+set +x  
+    Turn off debugging
+	
+--------
+set -e  
+    Exit on error , Useful for error handling; exits the script immediately if any command fails.
+
+   Causes the script to exit immediately if any command exits with a non-zero status (indicating an error).
+   
+---------------
+   
+==================================================================================================================
+COMMANDLINE ARGUMENTS / POSTITIONAL ARGUMENTS / COMMANDLINE VARIABLES/SPECIAL VARIABLES 
+
+[root@linux opt]# cat cla.sh
+
+#!/bin/bash
+
+echo "The name of this script is: $0"
+echo "The first argument is: $1"
+echo "The second argument is: $2"
+echo "Number of arguments passed: $#"
+echo "All the arguments passed - as SINGLE word: $*"
+echo "All the arguments passed - as individual words: $@"
+echo "Exit status is: $?"
+===============================================================================
+to understand diffrence between $* vs $@
+
+cat diff.sh 
+
+
+#!/bin/bash
+
+for i in "$*"; 
+#for i in "$@";   
+do
+    echo $i
+done
+
+================================================================================
+command to get tomcat process id:
+ps -ef | grep tomcat | awk -F" " '{print $2}' | head -1
+
+----------------------------
+cat tomcatsetup.sh
+
+
+#!/bin/bash
+#############################
+#    SCRIPT DATA:
+# AUTHOR: MADHU
+#
+
+cd /opt
+yum install java -y
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.113/bin/apache-tomcat-9.0.113.tar.gz
+tar -xvf /opt/apache-tomcat-9.0.113.tar.gz
+/opt/apache-tomcat-9.0.113/bin/startup.sh
+
+echo "THE TOMCAT PROCESS ID IS :"
+ps -ef | grep tomcat | awk -F" " '{print $2}' | head -1
+
+
+===============================================================================
+[root@linux opt]# cat sum.sh
+
+#!/bin/bash
+
+echo "ENTER THE 1ST NUMBER"
+
+read num1
+
+echo "ENTER THE 2nd NUMBER"
+
+read num2
+
+sum=$(( num1 + num2 ))
+
+echo " The sum of 2 numbers : sum"
+
+---------------------------------------------------
+[root@linux opt]# cat subtraction.sh
+
+
+
+#!/bin/bash
+
+#echo "ENTER THE 1ST NUMBER"
+
+num1=$1
+num2=$2
+
+#echo "ENTER THE 2nd NUMBER"
+
+#read num2
+
+output=$(( num1 - num2 ))
+
+echo " The output is : $output"
+
+------------------------------------------------------
+
+
+Variables:
+
+LOCAL VARIABLES 
+ENVIRONMENT var
+SHELL VAR
+
+
+LOCAL VARIABLES: Defined within a specific function or script. They are temporary and only accessible within their scope.
+
+ENVIRONMENT VARIABLEs: Set using export, available system-wide, and accessible by any child process.
+
+SHELL VARIABLES: Defined in the current shell session. If not exported, they are not accessible to child processes.
+
+-------------------------
+
+How to read a  variable :
+
+read name 
+--------------------------------------
+How to unset a variabl e
+
+unset name  
+-------------------------------------------
+vim unsetex.sh
+
+#!/bin/bash
+
+name="Madhu kiran"
+
+echo $name        
+                    
+unset name        
+
+echo $name  # Output: (nothing, the variable is unset)
+
+=================================================
+ENVIRONMENT VARIABLES :
+
+These varibales are dynamic 
+environment variables provide a way to customize the behavior of software and the operating system itself.
+
+User specific environemnt variables .
+
+How to check environment variables in windows os and Linux OS.
+& how to configure in both WINDOWS  & LINUX OS
+
+   env
+   echo HOSTNAME
+   echo $HOSTNAME
+   env | grep USER
+   echo $USER
+   echo USER
+   export TESTNAME=testmadhu
+   echo $USER
+   printenv USER
+   export COLOR=blune
+   env
+   export VAR=testmadhu
+   env | grep COLOR
+   printenv VAR
+   printenv COLOR
+   echo $VAR
+   
+removing environment variable using unset:    
+   unset COLOR
+   printenv COLOR
+   
+====================================================
+[root@linux opt]# cat unset.sh
+#!/bin/bash
+
+name="Madhu kiran"
+
+echo "printing variable: $name"
+
+unset name
+
+echo "printing variable: $name"  # Output: (nothing, the variable is unset)
+
