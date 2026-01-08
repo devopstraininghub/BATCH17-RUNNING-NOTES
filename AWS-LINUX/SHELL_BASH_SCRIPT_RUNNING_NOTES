@@ -509,5 +509,344 @@ do
         i=$((i - 1))
 
 
+==================================================================================================
+
+
+
+INFINITE LOOPS 
+cat infiniteloop.sh
+
+#!/bin/bash
+i=1
+
+while [ "$i" -gt 0  ];
+
+do
+   echo "the number is : $i"
+   i=$((i + 1))
+done
+
+--------------------------------------------------------------------
+
+
+BREAK AND CONTINUE 
+
+#!/bin/bash
+
+i=1
+
+while [ "$i" -le 100 ]; do
+
+
+    if [ "$i" -eq 6 ]; then
+        break  
+    fi
+
+    echo "the number is: $i"
+    i=$((i + 1))
+
+done
+
+--------------------------------------------------------------------
+#!/bin/bash
+
+i=1
+
+while [ "$i" -le 100 ]; do
+
+    if [ "$i" -eq 6 ]; then
+        i=$((i + 1))
+        continue
+    fi
+
+    echo "the number is: $i"
+    i=$((i + 1))
+
+done
+------------------------------------------------------------------------
+if service_down; then
+   continue   # check next service
+fi
+
+if critical_service_down; then
+   break      # stop pipeline
+fi
+
+--------------------------------------------------------------------------
+
+# BASH OPERATORS
+
+
+------------------------------------------------------------
+Arithmetic Operators (Numbers)
+------------------------------------------------------------
+
+       +   Addition
+       -   Subtraction
+       *   Multiplication
+       /   Division
+       %   Modulus
+       **  Power
+
+a=10
+b=3
+
+echo $((a + b))     # 13
+echo $((a - b))     # 7
+echo $((a * b))     # 30
+echo $((a / b))     # 3
+echo $((a % b))     # 1
+echo $((a ** 2))    # 100
+
+
+------------------------------------------------------------
+Relational Operators (Numeric Comparison)
+------------------------------------------------------------
+# Used inside [ ]
+
+          -eq  Equal
+          -ne  Not equal
+          -gt  Greater than
+          -lt  Less than
+          -ge  Greater or equal
+          -le  Less or equal
+
+if [ "$a" -gt "$b" ]; then
+    echo "a is greater than b"
+fi
+
+
+------------------------------------------------------------
+String Operators
+------------------------------------------------------------
+
+        =    Equal
+       !=   Not equal
+       -z   String is empty
+       -n   String is not empty
+       
+name="linux"
+
+if [ "$name" = "linux" ]; then
+    echo "Correct string"
+fi
+
+------------------------------
+
+
+if [ -z "$var" ]; then
+    echo "Variable is empty"
+fi
+
+
+------------------------------------------------------------
+Boolean / Logical Operators
+------------------------------------------------------------
+
+      &&   Logical AND
+      ||   Logical OR
+      !    Logical NOT
+
+if [ "$a" -gt 5 ] && [ "$b" -lt 10 ]; then
+    echo "Both conditions are true"
+fi
+
+if [ "$a" -lt 5 ] || [ "$b" -lt 5 ]; then
+    echo "At least one condition is true"
+fi
+
+
+------------------------------------------------------------
+File Test Operators ( Important)
+------------------------------------------------------------
+
+         -f  File exists
+         -d  Directory exists
+         -e  File or directory exists
+         -r  Readable
+         -w  Writable
+         -x  Executable
+         -s  File not empty
+         
+if [ -f "/etc/passwd" ]; then
+    echo "File exists"
+fi
+
+
+------------------------------------------------------------
+Increment / Decrement Operators
+------------------------------------------------------------
+
+i=1
+
+
+i= $((i + 1))
+((i++))   # Post-increment
+((++i))   # Pre-increment
+((i--))   # Decrement
+
+echo "i value: $i"
+
+
+------------------------------------------------------------
+Assignment Operators
+------------------------------------------------------------
+
+x=10
+
+((x+=5))    # x = x + 5
+((x-=2))    # x = x - 2
+((x*=2))    # x = x * 2
+((x/=2))    # x = x / 2
+
+echo "x value: $x"
+
+
+------------------------------------------------------------
+Bitwise Operators 
+------------------------------------------------------------
+
+# &   AND
+# |   OR
+# ^   XOR
+# ~   NOT
+# <<  Left shift
+# >>  Right shift
+
+echo $((5 & 3))     # 1
+echo $((5 | 3))     # 7
+
+
+------------------------------------------------------------
+Command Logical Operators
+------------------------------------------------------------
+
+# &&  Run next command if success
+# ||  Run next command if failure
+# ;   Run regardless
+
+mkdir test_dir && cd test_dir
+ls /not_exist || echo "Command failed"
+
+ls && ll
+
+lm && ll
+
+lm || ll
+
+ll; ls; lm; pwd
+
+
+
+------------------------------------------------------------
+Production Best Practices
+
+--------------------------------------
+# Always quote variables  --> ex  rm "$file"
+
+file="Madhu kiran"
+
+rm "$file"
+
+rm "Madhu kiran" 
+--------------------------------------
+
+# Use [[ ]] instead of [ ]
+--------------------------------------
+# Use (( )) for arithmetic
+
+            count=5         
+         if [ "$count" -gt 3 ]; then      
+		 if (( count > 3 )); then
+             echo "Greater"
+         fi 
+		 	
+		 
+ --------------------------------
+		 count=$((count + 1))      
+		 ((count++))
+--------------------------------------
+
+		
+# Use set -euo pipefail
+
+set -euo pipefail 
+
+set -e
+set -u 
+set -o pipefail
+set -x 
+
+
+-e → Exit on error
+----------------
+-u → Fail on unset variables
+
+        set -u
+		
+		
+		
+        echo "Deploying to $ENV"
+----------------
+
+set -o pipefail
+
+cat file.txt | grep error
+-------------------------------  
+
+cat /etc/os-release
+
+=======================================================================
+
+
+--------------------------------------------------------------------
+Checking command success:
+
+
+docker ps >/dev/null 2>&1
+
+if [ $? -ne 0 ]; then
+  echo "Docker not running"
+  exit 1
+fi
+--------------------------------------------------------------------
+user details using for loop:
+
+for user in $(cut -d: -f1 /etc/passwd); do
+  echo "THE USER NAME IS l $user"
+done
+
+
+=============
+
+---------------------
+PATH
+
+The PATH variable is a specific type of environment variable that determines the directories where executable files are searched for when you type a command in the shell without specifying its full path.
+
+  If PATH is set to /usr/local/bin:/usr/bin:/bin, and you type ls, the system will look for ls in /usr/local/bin, then /usr/bin, and finally /bin.
+
+ls 
+
+lm
+
+PATH=
+/root/.local/bin:
+/root/bin:
+/usr/local/sbin:
+/usr/local/bin:
+/usr/sbin:
+/usr/bin
+
+/usr/bin/ls 
+
+PATH=/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+==================================
+
+
+
+
+
+
 
 
