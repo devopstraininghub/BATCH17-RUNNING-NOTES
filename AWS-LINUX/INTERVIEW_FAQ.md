@@ -10,7 +10,7 @@ Recently modified: find /var/log -mtime -1
 
 #### 2. Which Linux distro did you use in your project?
 
-Mostly Amazon Linux 2, Ubuntu, or CentOS depending on the cloud provider and application needs.
+In my projects, I primarily used RHEL for production environments and Ubuntu for cloud-native and DevOps workloads....I’ve also used Amazon Linux 2, especially for AWS-native workloads.
 
 #### 3.: How can you set up password-less authentication in Linux using SSH?
 
@@ -39,6 +39,8 @@ Check disk I/O: iostat, iotop, df -h
 Check network issues: netstat, ping, traceroute
 Check logs: /var/log/syslog, application-specific logs
 Check processes: ps aux --sort=-%mem
+
+
 
 #### 8: Which command is used in Linux to check disk usage?
 
@@ -79,7 +81,7 @@ kill -9 <PID>       #### force kill
 Use:
 top
 htop
-mpstat
+
 
 #### 14. How can you check if a port is open and listening?
 
