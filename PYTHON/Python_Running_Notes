@@ -1,6 +1,5 @@
 DATE: 16 JAN 26
 
-
 IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
 
     --------------------------------------------------
@@ -36,7 +35,7 @@ IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
         - Faster automation with fewer lines of code.
 
         Summary:
-            Shell → OS-level automation
+            Shell → OS-level automation (Low level automation)
             Python → High-level automation + APIs + DevOps tools
 
 
@@ -54,7 +53,7 @@ IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
               • Web development
               • Data analysis
               • Machine learning
-              • DevOps automation
+              • DevOps automation (scope of our course) 
               • Scientific computing
 
         DevOps scope:
@@ -74,7 +73,7 @@ IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
     --------------------------------------------------
 
         - A collection of instructions written in code.
-        - Passed to CPU → Processor executes instructions.
+        - Passed to computer --> CPU → Processor executes instructions.
         - Programs manipulate data.
         - Data is stored using variables.
 
@@ -108,7 +107,7 @@ IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
 
 
         Example:
-            X = [10, 9.8, "KIRAN", True]
+            X = [10, 9.8, "KIRAN", True] 
 
 
     --------------------------------------------------
@@ -124,7 +123,7 @@ IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
         In Python:
 
             name = input("Enter your name: ")
-            print("Hello,", name)
+            print(f"Hello,", {name})
 
         Shell script example:
 
@@ -142,6 +141,10 @@ IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
 
         Assignment:
             =  +=  -=  *=
+			
+			a = 10
+			a+=2  --> a = a + 2
+			
 
         Comparison:
             <  >  <=  >=  ==  !=
@@ -177,15 +180,22 @@ IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
     --------------------------------------------------
 
         #!/bin/bash
+		
+		echo "ENter numer 1"
         read num1
+		
+	    echo "ENter numer 2"
         read num2
+		
         sum=$((num1+num2))
-        echo "Sum: $sum"
+        echo "Sum of 2 numbers : $sum"
 
 
     --------------------------------------------------
     ADVANCED DATA TYPES (COLLECTION TYPES)
     --------------------------------------------------
+
+     x = [ 10, madhu, 5.3, 4+3i ]
 
         List:
             - Ordered
@@ -203,13 +213,21 @@ IF SHELL SCRIPTING IS ALREADY THERE, WHY PYTHON?
             - Unordered
             - No duplicates
             - No index
+			- unique values 
+			
             set = {1, 2, 3}
 
         Dictionary:
             - Unordered
             - Mutable
             - Key-value pairs
-            dict = {"name": "Madhu", "age": 30}
+            dict = {
+			         "name": "Madhu", 
+			         "age": 30
+					 "address: "xyz"
+                     "prof" : "abc" 
+
+					 }
 
 
     --------------------------------------------------
@@ -225,7 +243,7 @@ List:
 Server IPs: 
        A list of IP addresses of servers in a Cluster, which may change as servers are added or removed.
 
-   - Server IPs: ['192.168.1.1', '192.168.1.2', '10.81.0.3'] 
+   - Server IPs: ['192.168.3.2', '192.168.1.2', '10.81.0.3'] 
 
    
 ==============================
@@ -260,8 +278,10 @@ Dictionaries :
 	
     Configurations: Dictionary of configurations, such as timeout settings and retry limits, where keys represent the setting and values are the parameters
 
-    - Environment Variables: {'DB_HOST': 'mcdb.example.com', 
+    - Environment Variables: {
+	                          'DB_HOST': 'mcdb.example.com', 
 	                           'DB_USER': 'admin'
+							   
 							   
 							   } 
 	
@@ -270,7 +290,15 @@ Dictionaries :
 	                   'timeout': 30, 
 					   'retries': 3
 					   }
-	
+					   
+					   
+	    dict = {
+			         "name": "Madhu", 
+			         "age": 30
+					 "address: "xyz"
+                     "prof" : "abc" 
+
+					 }
 
 
 ========================================================
@@ -306,7 +334,7 @@ Dictionaries :
 
         Remove duplicates from list:
 
-            usernames = ["madhu", "kiran", "madhu"]
+            usernames = ["madhu", "kiran", "madhu", "raja" ]
             unique = list(set(usernames))
 
         Contact book:
@@ -318,8 +346,60 @@ Dictionaries :
             }
 
             contact_book = [
-                {"name": "Madhu", "phone": "..."},
-                {"name": "xyz",   "phone": "..."}
+     
+                {"name": "xyz",   "phone": "...","email": "abc@gmail.com"},
+				{                                                        },
+				{"name": "Madhu", "phone": "...", "email": "abc@gmail.com"},
             ]
 
 ===============================================================================
+
+========================================================
+
+
+	FUNCTIONS 
+          -- BLOCK OF CODE FOR REPEATED USE 
+		  -- ALLOWS TO GROUP A SET OF COMMANDS INTO A SINGLE, REUSABLE UNIT. 
+		  -- BREAK DOWN TOTAL FUNCTIONALITY OF SCRIPT INTO LOGICAL SUB-SECTIONS 
+          -- ENCAPSULATE AND REUSE CODE
+		  -- WE CAN CALL FUNCTIONS WHEN EVER NEEDED
+		  -- MAKE YOUR SCRIPTS MORE ORGANIZED, MODULAR, AND EASIER TO MAINTAIN.
+		  
+	
+
+============================================================
+
+FUNCTIONS IN PYTHON: 
+
+# Python example
+
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Madhu")	
+
+====================================================================
+
+
+FUNCTIONS IN SHELL : 
+# Bash example
+
+greet() {
+  echo "Hello, $1!"
+}
+
+greet "Madhu"
+
+greet "kiran"
+
+=================================
+
+
+LINUX :
+
+yum install python -y 
+apt install python -y 
+
+WINDOWS: 
+================================================================
+
