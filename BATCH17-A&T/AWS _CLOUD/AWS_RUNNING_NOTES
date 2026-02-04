@@ -1,3 +1,408 @@
+
+
+============================
+ON-PREMISES : What is On-Premises?
+============================
+
+On-premises means:
+You own and manage everything yourself (your own datacenter) 
+
+This includes:
+- Servers (big computers)
+- Storage
+- Networking equipment
+- Power
+- Cooling
+- Security
+- IT staff to maintain it
+
+
+============================
+CLOUD : What is Cloud?
+============================
+
+Cloud means:
+Using someone else’s computers (servers) over the internet
+instead of owning and managing your own.
+
+
+============================
+EXAMPLE: Running a Website
+============================
+
+ON-PREMISES:
+
+- Buy a server
+- Install OS and software
+- Set up networking
+- Handle power & cooling
+- Fix hardware issues
+- Upgrade when traffic grows
+- Limited storage - External hard drive or  server
+- Limited space
+- If it breaks → data loss risk
+
+Result:
+- Takes time
+- High cost
+- Requires expertise
+
+
+CLOUD:
+
+- Create an account
+- Click "Create Server"
+- Choose server size
+- Pay per hour or usage
+- Scale up or down anytime AS PER REQUIREMENT 
+
+Result:
+- Fast
+- Flexible
+- Beginner-friendly
+
+
+============================
+KEY BENEFITS OF CLOUD
+(Why Cloud is Popular)
+============================
+
+- No hardware to buy
+- Pay only for what you use (Ondemand )
+- Easy to scale resources
+- High availability
+- High Scalability
+- Faster to start
+- Global access from anywhere
+
+
+============================
+WHEN ON-PREMISES IS STILL USED
+============================
+
+Some companies prefer on-premises when:
+
+- Strict data security laws exist
+- Internet is not reliable
+- Legacy systems are in use
+- Full control over systems is required
+
+
+==================================================
+AWS FREE TIER 
+
+
+AWS Free Tier allows new users to try AWS services
+without paying immediately.
+
+It is mainly used for:
+- Learning AWS
+- Practice
+- Small experiments
+- Beginners in Cloud
+
+
+========================================
+AWS FREE TIER – CURRENT USAGE MODEL
+(NEW ACCOUNTS)
+========================================
+
+For new AWS accounts:
+
+- AWS offers a Free Plan with credits
+- You can get up to $200 AWS credits
+  - $100 at signup
+  - Up to $100 by completing learning activities
+
+- Valid for:
+  - 6 months
+  - OR until credits are used (whichever comes first)
+
+- No charges unless you upgrade to Paid Plan
+
+
+========================================
+IS IT FREE FOR 1 YEAR OR 6 MONTHS?
+========================================
+
+- Older AWS accounts (created earlier):
+  - Had 12 months Free Tier for many services
+
+- New AWS accounts:
+  - Mostly follow 6-month Free Plan with credits
+
+Note:
+- AWS model may change over time
+- Always check usage limits in AWS console
+
+
+========================================
+ALWAYS FREE SERVICES
+(NO EXPIRY – WITH LIMITS)
+========================================
+
+Some services are free every month
+within certain limits, even after credits end.
+
+Examples:
+- AWS Lambda
+  - 1 million free requests per month
+- Amazon S3
+  - Limited free storage
+- Amazon DynamoDB
+  - Free storage and read/write capacity
+
+(Usage limits apply)
+
+
+========================================
+IMPORTANT POINTS TO REMEMBER
+========================================
+
+- Credit card is required to create AWS account ( Call your customer care) 
+- AWS follows pay-as-you-use model
+- If you exceed free limits → you will be charged
+- Always monitor billing dashboard
+
+
+7396627149
+
+========================================
+
+AWS Free Tier is a starter pack for beginners.
+
+- New users get free credits (valid ~6 months)
+- Some services are always free within limits
+- Best way to learn AWS hands-on
+- Be careful with usage to avoid charges
+
+
+==============
+======================================================
+
+    DIFFERENCE BETWEEN AWS REGION AND AVAILABILITY ZONE
+
+    --------------------------------------------------
+    AWS REGION
+    --------------------------------------------------
+
+        • A geographic location in the world.
+        • Each region contains multiple data centers.
+        • Regions are completely isolated from each other.
+        • Used for:
+              - Disaster recovery
+              - Data residency requirements
+              - Latency-based deployments
+
+        Examples:
+            us-east-1  (N. Virginia)
+            ap-south-1 (Mumbai)
+            eu-west-1  (Ireland)
+
+
+    --------------------------------------------------
+    AVAILABILITY ZONE (AZ)
+    --------------------------------------------------
+
+        • A physically separate data center *inside* a region.
+        • Each region has 2–6+ AZs.
+        • AZs are isolated but connected with low-latency networks.
+        • Used for:
+              - High availability
+              - Fault tolerance
+              - Redundant architecture
+
+        Example inside ap-south-1 (Mumbai):
+            ap-south-1a
+            ap-south-1b
+            ap-south-1c
+
+
+    --------------------------------------------------
+    SIMPLE DIFFERENCE
+    --------------------------------------------------
+
+        Region:
+            A geographical area (big)
+
+        Availability Zone:
+            Data centers inside a region (smaller)
+
+
+    --------------------------------------------------
+
+        A region is a geographic location, while availability
+        zones are isolated data centers within that region,
+        designed for high availability and fault tolerance.
+
+
+-------------------------------------------------
+    WHY MULTI-AZ DEPLOYMENTS GIVE HIGH AVAILABILITY
+    --------------------------------------------------
+
+        Because when you deploy across multiple AZs:
+
+            If AZ-A goes down,
+            AZ-B automatically serves traffic.
+
+        Example:
+            • 2 EC2 instances in different AZs
+            • ALB balances traffic
+            • RDS Multi-AZ keeps standby replica
+            • Auto Scaling replaces failed instances
+
+
+    By default Availability Zones are not replicas of each other.
+        They are independent data centers within a region.
+        High availability is achieved when YOU deploy your
+        application and data across multiple AZs.
+		
+		
+		
+		
+==============
+
+DATE: 29 JAN 26
+
+
+class commands :
+
+sudo su -
+hostnamectl set-hostname serv.name
+
+sudo su -
+lsblk 
+
+df -Th
+
+touch file1 file2
+
+mkdir dir1 dir2 
+
+
+cd dirname
+----------------------------------------------------
+
+regions 
+availability zones 
+
+
+How to create your ec2 instance ?
+How to connect to ec2 instance ?
+
+
+(ELASTIC BLOCK STORE): 
+
+SERVER 1:
+
+     mkfs -t ext4 /dev/nvme1n1
+     mkdir /madhu
+     mount /dev/nvme1n1 /madhu
+	 
+    
+SERVER 2: 
+
+     mkdir /madhu
+     mount /dev/nvme1n1 /madhu
+	 
+	 
+BACKUP :
+
+SNAPSHOT 
+
+COPYING SNAPSHOT 
+
+==================================================================
+Notes:
+    WHAT IS EBS (ELASTIC BLOCK STORE)?
+
+    --------------------------------------------------
+    OVERVIEW
+    --------------------------------------------------
+
+        • EBS stands for Elastic Block Store.
+        • It is a block-level storage volume used with EC2.
+        • Works like a virtual hard disk attached to an EC2 instance.
+        • Persistent storage → data remains even if EC2 is stopped.
+
+        Think of EBS as:
+            A portable, durable SSD/HDD that you attach to your EC2.
+
+
+    --------------------------------------------------
+    KEY FEATURES
+    --------------------------------------------------
+
+        • Persistent storage (data survives stop/start)
+        • High availability (replicated across AZ)
+        • Can detach and attach to another EC2
+        • Multiple volume types (SSD, HDD)
+        • Supports snapshots (backups)
+        • Encrypted storage available
+        • Resize anytime (increase size, change type)
+
+
+    --------------------------------------------------
+    TYPES OF EBS VOLUMES
+    --------------------------------------------------
+
+        General Purpose SSD (gp3 / gp2)
+            - Best for most workloads
+
+        Provisioned IOPS SSD (io1 / io2)
+            - High-performance databases
+
+        Throughput Optimized HDD (st1)
+            - Big data, log processing
+
+        Cold HDD (sc1)
+            - Rarely accessed data
+
+    --------------------------------------------------
+    SNAPSHOTS (VERY IMPORTANT)
+    --------------------------------------------------
+
+        • A snapshot is a backup of an EBS volume.
+        • Stored in S3 (internally managed by AWS).
+        • Can restore a new EBS volume from a snapshot.
+        • Used for:
+              - Backups
+              - Disaster recovery
+              - Creating AMIs
+
+
+    --------------------------------------------------
+    HOW EBS WORKS (SIMPLE VIEW)
+    --------------------------------------------------
+
+        1. Launch EC2
+        2. Attach EBS volume
+        3. Format and mount it like a normal hard disk
+        4. Store files, databases, logs, etc.
+        5. Create snapshots for backup
+
+
+    --------------------------------------------------
+    REAL-WORLD USE CASES
+    --------------------------------------------------
+
+        • Data storage for EC2 servers
+        • Databases (MySQL, MongoDB, PostgreSQL)
+        • Application logs
+        • File systems
+        • Docker storage
+        • Backup and restore with snapshots
+
+
+
+
+        EBS is a durable, high-availability block storage
+        for EC2 instances. It works like a virtual hard disk,
+        supports snapshots, and keeps your data safe even
+        when the instance is stopped.
+
+
+
 ===================================================================================================================
 
 DATE : 30 JAN 26 
@@ -360,3 +765,302 @@ TAGS:
         Tags in AWS are key–value labels that help with identification,
         cost tracking, automation, security, and large-scale resource
         management.
+
+
+
+========================================================================================================
+
+4 FEB 2026:
+
+    --------------------------------------------------
+    WHAT IS A LOAD BALANCER?
+    --------------------------------------------------
+
+        A Load Balancer distributes incoming traffic across
+        multiple servers (EC2 instances) to ensure:
+
+            • High availability
+            • Fault tolerance
+            • Better performance
+            • Zero downtime during failures
+
+        Simple meaning:
+            Instead of sending all traffic to one server,
+            the load balancer spreads it across many.
+
+
+    --------------------------------------------------
+    TYPES OF LOAD BALANCERS IN AWS
+    --------------------------------------------------
+
+        there are 3 main load balancers:
+
+        1) ALB – Application Load Balancer
+        2) NLB – Network Load Balancer
+        3) GWLB – Gateway Load Balancer
+		4) Classic Load Balancer
+
+
+    ==================================================
+    1) APPLICATION LOAD BALANCER (ALB)
+    ==================================================
+
+        • Operates at Layer 7 (HTTP/HTTPS)
+        • Understands content of HTTP requests
+        • Used for web applications and microservices
+
+        Supports:
+            - Path-based routing      (/login → server1)
+            - Host-based routing      (api.example.com)
+            - Query/Headers routing
+            - URL-based routing
+            - WebSockets
+            - TLS termination (HTTPS)
+            - Redirects / fixed responses
+
+        Best use cases:
+            • Web apps
+            • APIs / Microservices
+            • Routing based on URL or domain
+
+
+    ==================================================
+    2) NETWORK LOAD BALANCER (NLB)
+    ==================================================
+
+        • Operates at Layer 4 (TCP/UDP)
+        • Fastest and highest performance
+        • Handles millions of requests/second
+        • Used for low-latency, real-time traffic
+
+        Supports:
+            - TCP / UDP / TLS
+            - Static IP
+            - Cross-zone balancing
+            - High network throughput
+
+        Best use cases:
+            • Gaming
+            • Real-time apps
+            • High-performance workloads
+            • Load balancing non-HTTP traffic
+
+
+    ==================================================
+    3) GATEWAY LOAD BALANCER (GWLB)
+    ==================================================
+
+        • Operates at Layer 3 (Network Layer)
+        • Used for security appliances
+
+        Example appliances:
+            - Firewalls
+            - IDS / IPS systems
+            - Packet inspection tools
+
+        Best use cases:
+            • Insert firewalls between VPCs
+            • Centralizing traffic inspection
+
+
+    --------------------------------------------------
+    WHEN TO USE WHICH?
+    --------------------------------------------------
+
+        ALB → Websites, APIs, HTTP/HTTPS  
+        NLB → High performance TCP/UDP  
+        GWLB → Firewalls, deep packet inspection  
+
+
+    ==================================================
+    ALB – CONFIGURATION OPTIONS (IMPORTANT)
+    ==================================================
+
+    --------------------------------------------------
+    1) Basic Configuration
+    --------------------------------------------------
+
+        • Name
+        • Scheme:
+              - Internet-facing
+              - Internal
+        • IP Address Type:
+              - IPv4
+              - Dualstack (IPv4 + IPv6)
+        • VPC selection
+
+    --------------------------------------------------
+    2) Network Mapping
+    --------------------------------------------------
+
+        • Select subnets in multiple AZs
+        • Enable/disable cross-zone load balancing
+
+    --------------------------------------------------
+    3) Listeners
+    --------------------------------------------------
+
+        Example listeners:
+            • HTTP (80)
+            • HTTPS (443)
+
+        Each listener requires:
+            - Rule(s)
+            - Default target group
+
+    --------------------------------------------------
+    4) SSL Certificates (for HTTPS)
+    --------------------------------------------------
+
+        • ACM certificate
+        • TLS version
+        • Security policies
+
+    --------------------------------------------------
+    5) Routing Rules
+    --------------------------------------------------
+
+        You can create:
+
+            • Path-based rules
+                 /app1  → TG-App1
+                 /app2  → TG-App2
+
+            • Host-based rules
+                 api.example.com → API-Target-Group
+
+            • Header-based routing
+            • Query-string routing
+            • HTTP method filters
+            • Redirect actions
+            • Fixed responses
+
+    --------------------------------------------------
+    6) Security Settings
+    --------------------------------------------------
+
+        • Security groups (allow port 80/443)
+        • Idle timeout
+        • Access logs (store in S3)
+
+
+    ==================================================
+    TARGET GROUP – CONFIGURATION OPTIONS
+    ==================================================
+
+    --------------------------------------------------
+    1) Target Type
+    --------------------------------------------------
+
+        • Instances (EC2 directly)
+        • IP addresses (Microservices on ECS/EKS)
+        • Lambda functions
+
+    --------------------------------------------------
+    2) Protocol & Port
+    --------------------------------------------------
+
+        • HTTP / HTTPS       (for ALB)
+        • TCP / UDP / TLS    (for NLB)
+        • Health check port
+        • Traffic port
+
+    --------------------------------------------------
+    3) Health Checks
+    --------------------------------------------------
+
+        • Protocol (HTTP, HTTPS, TCP)
+        • Health check path (for ALB)
+              Example:  /health, /status
+        • Success codes (200, 302, etc.)
+        • Interval (default 30 seconds)
+        • Healthy threshold
+        • Unhealthy threshold
+        • Timeout seconds
+
+    --------------------------------------------------
+    4) Advanced Health Check Features
+    --------------------------------------------------
+
+        • Deregistration delay
+        • Slow start
+        • Stickiness (session persistence)
+        • Matcher codes
+        • Health check override per target
+
+    --------------------------------------------------
+    5) Registered Targets
+    --------------------------------------------------
+
+        • Select EC2 Instances
+        • Select IPs
+        • Register Lambda functions
+
+
+    --------------------------------------------------
+    SUMMARY LINES
+    --------------------------------------------------
+
+        A load balancer distributes traffic across multiple servers
+        to ensure availability, performance, and reliability.
+
+        ALB works at Layer 7 for HTTP/HTTPS,
+        NLB works at Layer 4 for fast TCP/UDP traffic,
+        GWLB works at Layer 3 for firewall and security appliances.
+
+        A target group is where the load balancer sends traffic.
+        It defines health checks, ports, targets, and routing rules.
+  
+
+
+====================================================================
+    WHAT IS USER DATA IN AWS?
+
+
+        User Data is a script that runs automatically
+        when an EC2 instance launches in
+
+        It is used to automate initial server setup.
+
+    --------------------------------------------------
+    WHAT USER DATA CAN DO?
+    --------------------------------------------------
+
+        • Install software (Apache, Nginx, Java, Python)
+        • Update packages
+        • Create files or directories
+        • Configure applications
+        • Start services
+        • Download code from GitHub/S3
+        • Set environment variables
+
+    --------------------------------------------------
+    COMMON USER DATA SCRIPT (LINUX)
+    --------------------------------------------------
+#!/bin/bash
+
+yum update -y
+yum install -y httpd
+systemctl enable httpd
+systemctl start httpd
+echo "THIS IS SAMPLE FACEBOOK PAGE" > /var/www/html/index.html
+
+    --------------------------------------------------
+    IMPORTANT POINTS
+    --------------------------------------------------
+
+        • Runs only on FIRST boot (unless configured otherwise)
+        • Runs as root user
+        • Stored in the EC2 instance metadata
+        • Helps automate server provisioning
+
+
+        User Data = "Auto-setup script" for your EC2.
+
+        When the instance starts,
+        AWS runs your script automatically,
+        so you don't need to configure the server manually.
+
+
+
+
