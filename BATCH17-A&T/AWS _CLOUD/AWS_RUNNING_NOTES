@@ -1501,3 +1501,452 @@ ty
   
   
   256 * 256 -- > 65536 --> 65k + Ips 
+
+
+=============================================================================================
+  
+ =======================================================
+
+DATE: 10 FEB 2026
+
+AWS VPC - VPC CONNECTIVITY 
+
+VPC PEERING 
+
+
+========================================================
+DATE:  11 FEB 2026
+
+Covered :
+PUB IP & PVT IP 
+SECURITY GROUP 
+NACL 
+NIC 
+EIP 
+
+
+    PUBLIC IP VS PRIVATE IP IN AWS (SHORT NOTES)
+
+    --------------------------------------------------
+    WHAT IS A PRIVATE IP?
+    --------------------------------------------------
+
+        • Assigned to an EC2 instance inside a VPC.
+        • Used for internal communication only.
+        • Cannot be accessed from the internet.
+        • Always stays within the AWS network.
+
+        Example:
+            10.0.1.25
+            172.31.22.10
+
+        Private IP is permanent for the instance (unless changed).
+
+
+    --------------------------------------------------
+    WHAT IS A PUBLIC IP?
+    --------------------------------------------------
+
+        • Assigned to an EC2 in a PUBLIC subnet.
+        • Allows access from the internet.
+        • Changes when the instance stops/starts 
+          (unless it's an Elastic IP).
+
+        Example:
+            3.110.45.120
+
+
+    --------------------------------------------------
+    WHY DOES AWS USE BOTH PUBLIC AND PRIVATE IPs?
+    --------------------------------------------------
+
+        1) Security  
+            - Private IP keeps internal servers hidden.
+            - Only selected servers get public IPs.
+
+        2) Cost-saving  
+            - Internet traffic via public IP costs more.
+            - Internal private IP traffic is cheaper.
+
+        3) Isolation  
+            - Databases and backend apps must stay private.
+            - Frontend/ALB need public access.
+
+        4) Flexibility  
+            - Public for internet-facing systems  
+            - Private for internal microservices  
+
+
+    --------------------------------------------------
+    WHY TWO IPs? 
+    --------------------------------------------------
+
+        Because:
+            • Private IP → For internal communication  
+            • Public IP  → For internet communication  
+
+        Example:
+            - Front-end EC2 needs public IP to serve users.
+            - Back-end EC2 and DB only need private IP (no internet).
+
+
+    --------------------------------------------------
+    HOW AWS DECIDES WHICH IP TO ASSIGN?
+    --------------------------------------------------
+
+        • If EC2 is in a PUBLIC subnet + Auto-assign Public IP = enabled  
+              → It gets both Public + Private
+
+        • If EC2 is in a PRIVATE subnet  
+              → It gets ONLY a Private IP
+
+
+    --------------------------------------------------
+    SIMPLE SUMMARY
+    --------------------------------------------------
+
+        Private IP = Internal-only, safe, inside VPC  
+        Public IP  = Internet-facing, accessible globally  
+
+        AWS uses both for:
+            - Security
+            - Isolation
+            - Cost control
+            - Architecture best practices
+
+
+--------------------------------------------------------------------------
+
+    WHAT IS A SECURITY GROUP IN AWS?
+
+        A Security Group (SG) in
+        Amazon Web Services (AWS)
+        is a virtual firewall that controls
+        **which traffic is allowed IN and OUT**
+        of your EC2 instances or services.
+
+
+    --------------------------------------------------
+    WHY DO WE NEED SECURITY GROUPS?
+    --------------------------------------------------
+
+        • Protect servers from unwanted traffic  
+        • Allow only permitted ports (SSH, HTTP, HTTPS)  
+        • Block all other traffic by default  
+        • Increase security inside the VPC  
+        • Control access at the instance level  
+
+
+    --------------------------------------------------
+    IMPORTANT FEATURES
+    --------------------------------------------------
+
+        • SGs are stateful  
+              - If inbound is allowed, outbound response is auto-allowed
+
+        • Deny is implicit  
+              - If a rule is not allowed, it is automatically blocked
+
+        • Can attach multiple SGs to one EC2  
+        • Can reuse the same SG for multiple EC2s  
+
+
+    --------------------------------------------------
+    INBOUND RULES
+    --------------------------------------------------
+
+        Defines what traffic can ENTER the instance.
+
+        Example:
+            Port 22  → Allow SSH
+            Port 80  → Allow HTTP
+            Port 443 → Allow HTTPS
+
+
+    --------------------------------------------------
+    OUTBOUND RULES
+    --------------------------------------------------
+
+        Defines what traffic can LEAVE the instance.
+
+        Default:
+            All outbound traffic is allowed.
+
+
+    --------------------------------------------------
+    WHERE SECURITY GROUPS ARE USED?
+    --------------------------------------------------
+
+        • EC2 instances  
+        • Load Balancers  
+        • RDS databases  
+        • Lambda functions (inside VPC)  
+        • ENIs (Elastic Network Interfaces)  
+
+
+    --------------------------------------------------
+    SUMMARY
+    --------------------------------------------------
+
+        Security Group = Instance-level firewall  
+        Controls: who can talk to your server  
+        Default: everything blocked except what you allow  
+        Works at: inbound + outbound, stateful behavior  
+
+
+******************************************************************************************************
+
+    WHAT IS A NACL IN AWS?
+
+    --------------------------------------------------
+    DEFINITION
+    --------------------------------------------------
+
+        A NACL (Network Access Control List) in
+        Amazon Web Services (AWS)
+        is a firewall that controls traffic
+        **at the subnet level**, not instance level.
+
+        It filters traffic entering or leaving a subnet.
+
+
+    --------------------------------------------------
+    KEY FEATURES OF NACL
+    --------------------------------------------------
+
+        • Works at subnet level  
+        • Stateless (does NOT remember previous traffic)  
+        • You must explicitly allow both inbound and outbound  
+        • Has numbered rules (evaluated in order)  
+        • Can allow or deny traffic  
+
+
+    --------------------------------------------------
+    DEFAULT NACL BEHAVIOR
+    --------------------------------------------------
+
+        • Default NACL → allows everything  
+        • Custom NACL → denies everything until you add rules  
+
+
+    --------------------------------------------------
+    NACL VS SECURITY GROUP (SHORT NOTES)
+    --------------------------------------------------
+
+        Security Group:
+            • Instance-level firewall  
+            • Stateful  
+            • Only ALLOW rules  
+            • Automatically allows return traffic  
+            • Easier and more common  
+
+        NACL:
+            • Subnet-level firewall  
+            • Stateless  
+            • ALLOW + DENY rules  
+            • Must allow inbound AND outbound manually  
+            • Used for an extra security layer  
+
+
+    --------------------------------------------------
+    WHEN TO USE WHAT?
+    --------------------------------------------------
+
+        Use Security Groups when:
+            • Protecting specific EC2/RDS servers  
+            • Allowing ports like 22, 80, 443  
+            • You want simpler, safer control  
+
+        Use NACL when:
+            • You need subnet-wide rules  
+            • You want to block specific IPs  
+            • Need an additional security layer  
+
+
+    --------------------------------------------------
+    SIMPLE SUMMARY
+    --------------------------------------------------
+
+        NACL = Subnet-level firewall (stateless)  
+        SG   = Instance-level firewall (stateful)  
+
+        Together they provide layered network security in AWS.
+
+
+****************************************************************************************************
+
+EIP:
+
+    WHAT IS AN ELASTIC IP (EIP)?
+
+    --------------------------------------------------
+    SIMPLE DEFINITION
+    --------------------------------------------------
+
+        An Elastic IP (EIP) in Amazon Web Services (AWS)
+        is a static, permanent public IP address that
+        belongs to your AWS account — NOT to a specific EC2 instance.
+
+        You can detach it from one EC2 and attach it to another.
+
+
+    --------------------------------------------------
+    HOW IS ELASTIC IP DIFFERENT FROM PUBLIC IP?
+    --------------------------------------------------
+
+        Normal Public IP:
+            • Assigned automatically when EC2 starts
+            • Changes every time you STOP and START the instance
+            • You cannot move it to another EC2
+            • Controlled by AWS, not by you
+
+        Elastic IP:
+            • Does NOT change after stop/start
+            • You can reassign it to any EC2 instantly
+            • You own it inside your AWS account
+            • Perfect for stable applications
+
+
+    --------------------------------------------------
+    HOW IS ELASTIC IP DIFFERENT FROM PRIVATE IP?
+    --------------------------------------------------
+
+        Private IP:
+            • Only for internal VPC communication
+            • Not accessible from the internet
+            • Every EC2 must have at least one private IP
+
+        Elastic IP:
+            • Public internet-accessible IP
+            • Used to reach your server from outside AWS
+
+
+    --------------------------------------------------
+    IF WE ALREADY HAVE A PUBLIC IP, WHY DO WE NEED ELASTIC IP?
+    --------------------------------------------------
+
+        Because:
+            Normal public IP changes when you stop/start EC2.
+
+        Many real-world systems NEED a permanent, never-changing IP:
+            • Hosting a website
+            • SSH access
+            • VPN servers
+            • Payment systems
+            • Third-party integrations
+            • DNS records
+            • Whitelisting in companies or firewalls
+
+        If the IP changes, everything breaks.
+
+        Elastic IP solves this problem:
+            → The IP stays the same forever.
+
+
+    --------------------------------------------------
+    MAIN ADVANTAGES OF ELASTIC IP
+    --------------------------------------------------
+
+        • Static public IP (never changes)
+        • You control it, not AWS
+        • Can move between EC2 instances
+        • Useful for failover:
+              If one server fails → attach EIP to a new server
+
+
+    --------------------------------------------------
+    LOGIC BEHIND ELASTIC IP (WHY AWS CREATED IT)
+    --------------------------------------------------
+
+        • To give customers a stable public IP address  
+        • To avoid IP changes after instance restart  
+        • To quickly switch traffic to a new EC2 during failures  
+        • To support DNS, firewalls, and external integrations  
+
+
+    --------------------------------------------------
+    SIMPLE SUMMARY
+    --------------------------------------------------
+
+        Private IP  → Internal AWS communication  
+        Public IP   → Internet access, but changes on restart  
+        Elastic IP  → Permanent public IP you own and can reassign  
+
+        Elastic IP exists so your public IP never changes.
+
+
+
+54.242.15.151
+13.220.226.91
+52.1.4.101
+
+
+************************************************************************************
+
+
+ENI:
+
+    --------------------------------------------------
+    SIMPLE DEFINITION
+    --------------------------------------------------
+
+        In Amazon Web Services (AWS), an NIC is called an
+        ENI (Elastic Network Interface).
+
+        Some EC2 instances attach more than one ENI
+        when they need to connect to multiple networks
+        or require advanced networking.
+
+
+    --------------------------------------------------
+    MAIN REASONS FOR MULTIPLE NICs
+    --------------------------------------------------
+
+        1) Connecting to Multiple Subnets
+           • One ENI in a public subnet (internet-facing)
+           • Another ENI in a private subnet (internal traffic)
+
+        2) Security Separation
+           • Frontend traffic and backend traffic kept separate
+           • Each ENI can have different Security Groups
+
+        3) Firewall / Proxy / NAT Instances
+           • These appliances need:
+                 - One ENI for incoming traffic
+                 - One ENI for outgoing traffic
+
+        4) High Availability / Failover Design
+           • ENIs can move between instances
+           • Helps in quick recovery if a server fails
+
+        5) Advanced Routing Needs
+           • Some architectures require custom routing paths
+           • Multi-homed EC2 instances support this
+
+        6) Monitoring or Logging Networks
+           • One ENI handles normal traffic
+           • Another ENI dedicated for logs or monitoring tools
+
+
+    --------------------------------------------------
+    SIMPLE SUMMARY
+    --------------------------------------------------
+
+        EC2 instances use multiple NICs when they must:
+            • Connect to more than one network
+            • Separate traffic for security
+            • Act as firewalls/proxies/NAT devices
+            • Support failover or advanced routing
+
+        Multiple ENIs = better security, isolation, routing, and reliability.
+
+
+
+==================================================================================================================================================================================================
+
+
+
+
+
+
+
