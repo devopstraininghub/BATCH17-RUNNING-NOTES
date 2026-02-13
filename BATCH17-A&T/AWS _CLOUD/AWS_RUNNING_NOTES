@@ -2088,7 +2088,410 @@ https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat
         NAT Gateway (for outbound internet)
 
         VPC contains everything.
+=========================================================================================================================
 
+
+
+====================================================================================================
+13 FEB 2026
+
+
+    AMAZON EFS (ELASTIC FILE SYSTEM) – SHORT NOTES
+
+    1) WHAT IS NFS?
+    --------------------------------------------------
+
+        NFS = Network File System
+
+        • A protocol used to share files over a network.
+        • Allows multiple machines to access the same storage.
+        • Works like a shared folder across servers.
+        • Uses port 2049.
+
+        Simple meaning:
+            NFS is the technology that lets servers
+            share files over the network.
+
+
+    --------------------------------------------------
+    WHAT IS EFS?
+    --------------------------------------------------
+
+        Amazon Elastic File System (EFS) is a
+        fully managed, scalable file storage service in AWS.
+
+        • It is shared file storage.
+        • Multiple EC2 instances can access it at the same time.
+        • Works using NFS protocol.
+        • Automatically scales storage size.
+
+        Simple meaning:
+            EFS = Shared network drive for many servers.
+		    EFS = AWS-managed NFS storage.
+			
+			        
+		NFS → Protocol (technology) - 2049
+        EFS → AWS service that uses NFS
+
+
+    --------------------------------------------------
+    WHERE IS EFS USED?
+    --------------------------------------------------
+
+        • Shared application data
+        • Web servers needing same files
+        • Container workloads (ECS, EKS)
+        • Content management systems
+        • Analytics workloads
+
+
+    --------------------------------------------------
+    HOW TO CONFIGURE EFS (SIMPLE STEPS)
+    --------------------------------------------------
+
+        1) Create EFS
+              - Choose VPC
+              - Select Availability Zones
+
+        2) Create Mount Targets
+              - One mount target per AZ
+              - Attach security groups
+
+        3) Configure Security Group
+              - Allow NFS port 2049
+              - Allow traffic from EC2 instances
+
+        4) Launch EC2 in same VPC
+
+        5) Mount EFS on EC2
+              Example (Linux):
+                  sudo mount -t nfs4 <efs-dns-name>:/ /mnt/efs
+
+        6) Use it like a normal directory
+              Files are shared across all mounted EC2s.
+
+
+    --------------------------------------------------
+    KEY FEATURES OF EFS
+    --------------------------------------------------
+
+        • Fully managed (no capacity planning)
+        • Auto-scaling storage
+        • Multi-AZ availability
+        • Highly durable
+        • Shared file access
+        • Pay only for storage used
+
+
+    --------------------------------------------------
+    EFS VS EBS (IMPORTANT DIFFERENCE)
+    --------------------------------------------------
+
+        EBS (Elastic Block Store):
+
+            • Block-level storage
+            • Attached to ONE EC2 at a time
+            • Like a hard disk
+            • Must choose size manually
+            • Typically used for OS / database storage
+
+        EFS (Elastic File System):
+
+            • File-level storage
+            • Shared by multiple EC2s
+            • Like a shared network folder
+            • Auto-scales storage
+            • Used for shared applications
+
+
+    --------------------------------------------------
+    SIMPLE COMPARISON
+    --------------------------------------------------
+
+        EBS  → Single server disk
+        EFS  → Shared storage for many servers
+
+        EBS  → Fixed size
+        EFS  → Automatically grows
+
+        EBS  → One instance at a time
+        EFS  → Many instances simultaneously
+
+
+    --------------------------------------------------
+    WHEN TO USE WHICH?
+    --------------------------------------------------
+
+        Use EBS when:
+            • You need storage for one EC2
+            • You need high IOPS for database
+            • You need boot volume
+
+        Use EFS when:
+            • Multiple EC2s need shared files
+            • Applications need common storage
+            • Containers need persistent shared storage
+
+
+----------------------------------
+
+        EFS = Managed, shared file storage in AWS.
+        EBS = Block storage attached to a single EC2.
+
+        EFS is for shared workloads.
+        EBS is for individual server storage.
+		
+	
+
+
+    --------------------------------------------------
+    WHAT ARE EFS LIFECYCLE POLICIES?
+    --------------------------------------------------
+
+        EFS can automatically move files between
+        storage classes to reduce cost.
+
+        Based on how frequently files are accessed.
+
+
+    --------------------------------------------------
+    EFS STORAGE CLASSES
+    --------------------------------------------------
+
+        1) Standard
+             • Frequently accessed files
+             • Higher cost
+             • High performance
+
+        2) Infrequent Access (IA)
+             • Files not accessed for 30+ days (configurable)
+             • Lower storage cost
+             • Small access charge
+
+        3) Archive
+             • Rarely accessed data
+             • Very low cost
+             • Higher access latency
+
+
+    --------------------------------------------------
+    HOW EFS LIFECYCLE POLICY WORKS
+    --------------------------------------------------
+
+        Example:
+
+            File not accessed for 30 days
+                → Automatically moves to IA
+
+            File not accessed for 90 days
+                → Moves to Archive
+
+        If accessed again:
+            It automatically moves back to Standard.
+
+
+		
+*************************************************************************************************************
+
+    MOUNT TARGETS IN EFS – SHORT NOTES
+
+    --------------------------------------------------
+    WHAT IS A MOUNT TARGET?
+    --------------------------------------------------
+
+        A Mount Target is a network endpoint
+        inside a subnet that allows EC2 instances
+        to connect to EFS.
+
+        It provides an IP address in your subnet
+        for accessing EFS.
+
+
+    --------------------------------------------------
+    WHY DO WE NEED MOUNT TARGETS?
+    --------------------------------------------------
+
+        • EFS is a regional service (multi-AZ).
+        • EC2 instances connect to EFS through
+          mount targets.
+        • Each Availability Zone needs its own
+          mount target for high availability.
+
+
+    --------------------------------------------------
+    IMPORTANT RULE
+    --------------------------------------------------
+
+        One Mount Target per Availability Zone (AZ).
+
+        Example:
+            If your VPC has:
+                AZ-a
+                AZ-b
+                AZ-c
+
+            You should create:
+                3 Mount Targets
+                (one in each AZ)
+
+
+    --------------------------------------------------
+    HOW IT WORKS
+    --------------------------------------------------
+
+        EC2 Instance
+             ↓
+        Mount Target (in same AZ)
+             ↓
+        EFS File System
+
+
+    --------------------------------------------------
+    CONFIGURATION STEPS (SIMPLE)
+    --------------------------------------------------
+
+        1) Create EFS
+        2) Select VPC
+        3) Choose subnets (one per AZ)
+        4) Attach security group
+              - Allow NFS port 2049
+        5) EC2 mounts EFS using DNS name
+
+
+    --------------------------------------------------
+    SECURITY REQUIREMENT
+    --------------------------------------------------
+
+        Security Group must allow:
+
+            Port 2049 (NFS)
+            Source = EC2 Security Group
+
+
+    --------------------------------------------------
+    SIMPLE SUMMARY
+    --------------------------------------------------
+
+        Mount Target = Access point to EFS
+        Lives inside a subnet
+        One per AZ
+        Required for EC2 to connect to EFS
+        Uses NFS protocol (port 2049)
+
+
+
+--------------------------------------------------------------------
+
+ WHAT IS A MOUNT TARGET?
+    --------------------------------------------------
+
+        A Mount Target is a network endpoint
+        inside a subnet that allows EC2 instances
+        to connect to EFS.
+
+   
+
+====================================================================
+
+
+CLOUD MODELS :
+ON PEM 
+IAAS
+PAS
+SAS
+
+    CLOUD SERVICE MODELS – SHORT NOTES
+
+    --------------------------------------------------
+    1) ON-PREMISES (ON-PREM)
+    --------------------------------------------------
+
+        • Everything is managed by you.
+        • Physical servers in your office/data center.
+        • You manage:
+              - Hardware
+              - Networking
+              - Storage
+              - OS
+              - Applications
+              - Security
+
+        High control
+        High responsibility
+        High maintenance cost
+
+
+    --------------------------------------------------
+    2) IaaS (Infrastructure as a Service)
+    --------------------------------------------------
+
+        • Cloud provider manages:
+              - Hardware
+              - Networking
+              - Data center
+
+        • You manage:
+              - Operating System
+              - Applications
+              - Runtime
+              - Data
+
+        Example services:
+              - EC2
+              - Virtual Machines
+              - EBS
+			  - EFS 
+
+        Most flexible model.
+
+
+    --------------------------------------------------
+    3) PaaS (Platform as a Service)
+    --------------------------------------------------
+
+        • Cloud provider manages:
+              - Hardware
+              - OS
+              - Runtime
+              - Middleware
+
+        • You manage:
+              - Application code
+              - Data
+
+        Example:
+              - AWS Elastic Beanstalk
+              - Azure App Service
+
+        Good for developers.
+
+
+    --------------------------------------------------
+    4) SaaS (Software as a Service)
+    --------------------------------------------------
+
+        • Cloud provider manages everything.
+        • You only use the software.
+
+        Example:
+              - Gmail
+              - Microsoft 365
+              - Salesforce
+
+        No infrastructure management.
+
+
+    --------------------------------------------------
+    SIMPLE COMPARISON
+    --------------------------------------------------
+
+        On-Prem → You manage everything  
+        IaaS    → You manage OS + apps  
+        PaaS    → You manage only app code  
+        SaaS    → You just use the software  
+
+
+---------------
 
 
 
