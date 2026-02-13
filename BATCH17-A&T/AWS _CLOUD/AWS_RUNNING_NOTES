@@ -1956,6 +1956,140 @@ https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat
 
 
 
+    AWS NETWORKING CONCEPTS     (Inside Amazon Web Services (AWS))
+
+
+    --------------------------------------------------
+    1) VPC (Virtual Private Cloud)
+    --------------------------------------------------
+
+        • Your private network inside AWS.
+        • You control:
+              - IP address range (CIDR)
+              - Subnets
+              - Route tables
+              - Security
+        • Like your own data center in the cloud.
+
+
+    --------------------------------------------------
+    2) SUBNET
+    --------------------------------------------------
+
+        • A smaller network inside a VPC.
+        • Created from the VPC IP range.
+        • Lives inside one Availability Zone.
+
+
+    --------------------------------------------------
+    3) PUBLIC SUBNET
+    --------------------------------------------------
+
+        • Subnet that has a route to Internet Gateway.
+        • Instances here can access the internet directly.
+        • Usually used for:
+              - Load Balancer
+              - Bastion Host
+              - Web servers
+
+
+    --------------------------------------------------
+    4) PRIVATE SUBNET
+    --------------------------------------------------
+
+        • Subnet that does NOT have direct internet access.
+        • No route to Internet Gateway.
+        • Used for:
+              - Application servers
+              - Databases
+              - Internal services
+
+
+    --------------------------------------------------
+    5) INTERNET GATEWAY (IGW)
+    --------------------------------------------------
+
+        • A gateway that allows communication
+          between VPC and the internet.
+        • Attached to the VPC.
+        • Required for public internet access.
+
+
+    --------------------------------------------------
+    6) NAT GATEWAY
+    --------------------------------------------------
+
+        • Allows private subnet instances
+          to access the internet (OUTBOUND only).
+        • Prevents internet from initiating
+          connections to private instances.
+        • Used for:
+              - OS updates
+              - Downloading packages
+
+
+    --------------------------------------------------
+    7) ROUTE TABLE
+    --------------------------------------------------
+
+        • A set of rules that decides
+          where network traffic should go.
+        • Each subnet must be associated
+          with a route table.
+
+        Example:
+            10.0.0.0/16 → local
+            0.0.0.0/0   → igw-id
+
+
+    --------------------------------------------------
+    8) PUBLIC ROUTE TABLE
+    --------------------------------------------------
+
+        • Has route:
+              0.0.0.0/0 → Internet Gateway
+        • Used by public subnets.
+
+
+    --------------------------------------------------
+    9) PRIVATE ROUTE TABLE
+    --------------------------------------------------
+
+        • Does NOT have direct IGW route.
+        • May have:
+              0.0.0.0/0 → NAT Gateway
+        • Used by private subnets.
+
+
+    --------------------------------------------------
+    10) JUMP SERVER / BASTION HOST
+    --------------------------------------------------
+
+        • An EC2 instance placed in public subnet.
+        • Used to SSH into private servers.
+        • Acts as a secure entry point.
+
+        Flow:
+            Your Laptop → Bastion Host → Private EC2
+
+
+    --------------------------------------------------
+    COMPLETE FLOW SUMMARY
+    --------------------------------------------------
+
+        Internet
+            ↓
+        Internet Gateway
+            ↓
+        Public Subnet (ALB / Bastion)
+            ↓
+        Private Subnet (App / DB)
+            ↓
+        NAT Gateway (for outbound internet)
+
+        VPC contains everything.
+
+
 
 
 
