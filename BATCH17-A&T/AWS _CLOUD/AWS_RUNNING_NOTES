@@ -3214,3 +3214,207 @@ DATE: 16 FEB 2026
         Glacier = Archive data  
         Intelligent-Tiering = Auto optimization  
 
+==================================
+
+
+DATE: 17 FEB 2026
+
+    AWS CLI – COMPLETE SHORT NOTES
+
+    --------------------------------------------------
+    WHAT IS AWS CLI?
+    --------------------------------------------------
+
+        AWS CLI = Command Line Interface.
+
+        It is a tool that allows you to interact with
+        Amazon Web Services (AWS) using commands
+        from terminal instead of the web console (GUI).
+
+        Example:
+            aws s3 ls
+            aws ec2 describe-instances
+
+
+    --------------------------------------------------
+    WHY DO WE NEED AWS CLI WHEN GUI EXISTS?
+    --------------------------------------------------
+
+        GUI:
+            • Good for beginners
+            • Manual operations
+            • Not automation-friendly
+
+        AWS CLI:
+            • Faster
+            • Scriptable
+            • Automatable
+            • Used in CI/CD pipelines
+            • Used in production troubleshooting
+            • Works in servers without browser
+
+        DevOps rule:
+            If you repeat a task → Automate it.
+            CLI helps automation.
+
+AKIA5Wxxxxxxxxxxxxxxxxxxxxxxxx
+elFDCxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+    --------------------------------------------------
+    HOW AWS CLI WORKS
+    --------------------------------------------------
+
+        1) Install AWS CLI
+        2) Configure credentials:
+
+            aws configure
+
+            Enter:
+                Access Key
+                Secret Key
+                Region
+                Output format -- none / json 
+
+        Credentials are stored locally ( in user home directly 
+
+    --------------------------------------------------
+    BASIC COMMAND STRUCTURE
+    --------------------------------------------------
+
+        aws <service> <operation> --parameters
+
+        Example:
+            aws ec2 describe-instances
+            aws s3 cp file.txt s3://mybucket/
+
+
+    --------------------------------------------------
+    DAY-TO-DAY DEVOPS OPERATIONS USING AWS CLI
+    --------------------------------------------------
+
+    1) S3 OPERATIONS
+
+        List buckets:
+            aws s3 ls
+
+        List files inside bucket:
+            aws s3 ls s3://mybucket/
+
+        Upload file:
+            aws s3 cp file.txt s3://mybucket/
+
+        Download file:
+            aws s3 cp s3://mybucket/file.txt .
+
+        Sync local folder:
+            aws s3 sync ./app s3://mybucket/
+
+
+    2) EC2 OPERATIONS
+
+        List EC2 instances:
+            aws ec2 describe-instances
+
+        Start instance:
+            aws ec2 start-instances --instance-ids i-0a54fdb26081aade5
+
+        Stop instance:
+            aws ec2 stop-instances --instance-ids i-123456
+
+        Terminate instance:
+            aws ec2 terminate-instances --instance-ids i-123456
+			
+	
+        TO create instance
+
+aws ec2 run-instances \
+  --image-id ami-0c1fe732b5494dc14 \
+  --instance-type t3.micro \
+  --key-name batch17a \
+  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Dev-Server},{Key=Env,Value=Dev}]'
+
+
+
+	
+
+
+    3) SECURITY GROUP OPERATIONS
+
+        List security groups:
+            aws ec2 describe-security-groups
+
+        Authorize inbound rule:
+            aws ec2 authorize-security-group-ingress \
+                --group-id sg-12345 \
+                --protocol tcp \
+                --port 22 \
+                --cidr 0.0.0.0/0
+
+
+    4) IAM OPERATIONS
+
+        List IAM users:
+            aws iam list-users
+
+        Create IAM user:
+            aws iam create-user --user-name devuser
+
+        Attach policy:
+            aws iam attach-user-policy \
+                --user-name devuser \
+                --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+
+    5) CLOUDWATCH LOGS
+
+        Describe log groups:
+            aws logs describe-log-groups
+
+
+    6) AUTO SCALING
+
+        Describe ASGs:
+            aws autoscaling describe-auto-scaling-groups
+
+
+    --------------------------------------------------
+    REAL DEVOPS USE CASES
+    --------------------------------------------------
+
+        • Automate deployments
+        • Upload build artifacts to S3
+        • Trigger infrastructure changes
+        • Backup automation scripts
+        • Monitoring and log retrieval
+        • Managing EC2 fleet
+        • Managing IAM users programmatically
+        • Used inside:
+              - Jenkins
+              - GitHub Actions
+              - Terraform external scripts
+
+
+    --------------------------------------------------
+    WHY CLI IS VERY IMPORTANT FOR DEVOPS
+    --------------------------------------------------
+
+        • Infrastructure as Code relies on CLI
+        • Automation requires CLI
+        • GUI is not scalable
+        • Production servers don’t have browsers
+        • Faster troubleshooting
+
+
+    --------------------------------------------------
+    SIMPLE SUMMARY
+    --------------------------------------------------
+
+        AWS CLI = Terminal-based access to AWS.
+
+        GUI = Manual work
+        CLI = Automation + Speed + DevOps
+
+        Every DevOps engineer must know AWS CLI.
+
+
