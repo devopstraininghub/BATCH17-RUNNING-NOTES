@@ -3844,4 +3844,85 @@ Object Storage:
 
 
 
+=========================================================================
 
+DATE: 21 FEB 2026
+
+---------------
+
+b17-prod-db.cyje0aiouw1i.us-east-1.rds.amazonaws.com
+
+ mysql work bench 
+ 
+ sqlectron 
+ 
+
+=============================
+
+mysql -h your-rds-endpoint.amazonaws.com -u yourusername -p
+
+=================================
+
+SHOW DATABASES;  - to view all available databases:
+
+USE database_name;
+SELECT DATABASE();
+
+
+CREATE TABLE employees (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,  -- Employee ID, auto-incremented
+    first_name VARCHAR(50),                      -- First Name
+    last_name VARCHAR(50)                        -- Last Name
+);
+
+
+
+
+
+=======
+
+SHOW DATABASES;
+USE facebookdb;
+SELECT DATABASE();
+
+CREATE TABLE employees (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,  -- Employee ID, auto-incremented
+    first_name VARCHAR(50),                      -- First Name
+    last_name VARCHAR(50)                        -- Last Name
+);
+
+INSERT INTO employees (first_name, last_name)
+VALUES ('MADHU', 'KIRAN');
+
+INSERT INTO employees (first_name, last_name)
+VALUES ('x', 'y');
+
+INSERT INTO employees (first_name, last_name)
+VALUES ('a', 'b');
+
+===========
+
+SELECT * FROM employees;
+
+SELECT first_name, last_name FROM employees;
+
+UPDATE employees
+SET last_name = 'Gorekar'
+WHERE employee_id = 2;
+
+
+DELETE FROM employees
+WHERE employee_id = 3;
+
+
+==============
+Create: INSERT INTO employees
+
+Read: SELECT * FROM employees
+
+Update: UPDATE employees SET column_name = value WHERE condition
+
+Delete: DELETE FROM employees WHERE condition
+
+
+====================================
