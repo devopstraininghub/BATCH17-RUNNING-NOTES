@@ -4101,3 +4101,209 @@ DATE: 23 FEB 2026
         and routes users to the correct AWS resource.
 
         Essential for hosting websites & APIs in AWS.
+======================================================================================================
+
+
+DATE: 27 FEB 2026
+
+
+
+    AWS CLOUDFRONT 
+
+    --------------------------------------------------
+    WHAT IS CLOUDFRONT?
+    --------------------------------------------------
+
+        CloudFront is AWS’s Content Delivery Network (CDN) service.
+
+        It delivers:
+            • Websites
+            • Images
+            • Videos
+            • APIs
+            • Static files
+            • Dynamic content
+
+        to users with low latency and high speed.
+
+        How?
+            CloudFront caches content in servers
+            placed all over the world.
+
+
+    --------------------------------------------------
+    WHAT IS A CDN?
+    --------------------------------------------------
+
+        CDN = Network of distributed servers worldwide
+              used to deliver content faster to users.
+
+        Instead of user downloading from the origin
+        (like S3 or EC2), the user gets it from the
+        nearest caching server.
+
+
+    --------------------------------------------------
+    WHAT IS AN EDGE LOCATION?
+    --------------------------------------------------
+
+        Edge Location = A site where CloudFront caches content.
+
+        • Present in hundreds of cities worldwide.
+        • NOT the same as Availability Zones.
+        • Much more geographically distributed.
+
+        Purpose:
+            Serve content closer to the user.
+
+
+    --------------------------------------------------
+    WHAT IS A CACHING SERVER?
+    --------------------------------------------------
+
+        A caching server stores a temporary copy of your content.
+
+        Example:
+            User requests image.jpg
+                → CloudFront caches it at the edge
+                → Next user gets it instantly
+                  (no need to hit S3 or EC2 origin)
+
+        Benefits:
+            • Faster delivery
+            • Less load on your backend
+            • Lower cost
+
+
+    --------------------------------------------------
+    WHAT IS A POINT OF PRESENCE (POP)?
+    --------------------------------------------------
+
+        POP = it could be Edge Location or  Regional Edge Cache.
+
+        It is a geographical location that hosts
+        CloudFront infrastructure.
+
+        POP = CDN presence point near end-users
+              to reduce latency.
+
+
+    --------------------------------------------------
+    HOW CLOUDFRONT WORKS? 
+    --------------------------------------------------
+
+        Step 1: User requests content (image, video, website)
+
+        Step 2: CloudFront checks nearest Edge Location
+                - If cached → serve immediately (fast)
+                - If not cached → fetch from origin
+
+        Step 3: Cache the object at Edge Location
+
+        Step 4: Future users nearby get instant access
+
+
+    --------------------------------------------------
+    ORIGIN TYPES (WHERE CONTENT COMES FROM)
+    --------------------------------------------------
+
+        CloudFront can pull data from:
+
+            • S3 bucket
+            • EC2 instance
+            • Elastic Load Balancer (ALB/NLB)
+            • API Gateway
+            • On-premise servers
+
+        CloudFront does NOT store your content permanently—
+        it only caches temporarily.
+
+
+    --------------------------------------------------
+    WHY USE CLOUDFRONT?
+    --------------------------------------------------
+
+        • Faster performance for global users
+        • Reduces load on EC2/S3/Backend
+        • DDoS protection (via AWS Shield)
+        • Built-in HTTPS/SSL
+        • Edge caching reduces cost
+        • Protects entire application at edge
+        • Integrates with S3 static websites
+
+
+    --------------------------------------------------
+    REAL-TIME USE CASES
+    --------------------------------------------------
+
+        • Host static websites (HTML, CSS, JS)
+        • Serve images/videos for large apps
+        • Speed up API responses
+        • Deliver React/Angular web apps globally
+        • Protect backend using CloudFront + WAF
+        • Reduce EC2 load by caching responses
+        • Streaming video platforms (OTT)
+
+
+
+    --------------------------------------------------
+    KEY FEATURES OF CLOUDFRONT
+    --------------------------------------------------
+
+        • Caching (TTL – Time To Live)
+        • Custom error pages
+        • Geo-blocking
+        • Origin failover (DR setup)
+        • SSL/TLS encryption
+        • Signed URLs & cookies (secure content)
+        • Access logs
+        • Integration with WAF
+        • Low cost via caching
+
+
+
+    --------------------------------------------------
+    DIFFERENCE BETWEEN EDGE LOCATION & REGION
+    --------------------------------------------------
+
+        Region:
+            • Main AWS infrastructure
+            • AZs inside Regions
+            • Used for compute and storage
+
+        Edge Location:
+            • Small CDN nodes
+            • Hundreds globally
+            • Only for content delivery & caching
+
+
+
+    --------------------------------------------------
+    SIMPLE EXAMPLE (REAL-TIME)
+    --------------------------------------------------
+
+        Scenario:
+            You host a static website in an S3 bucket.
+
+        Without CloudFront:
+            Users far from the region load the site slowly.
+
+        With CloudFront:
+            Site is cached worldwide → loads instantly.
+
+        Setup:
+            S3 (Origin) → CloudFront (Edge) → User
+
+
+
+    --------------------------------------------------
+    SIMPLE SUMMARY
+    --------------------------------------------------
+
+        CloudFront = CDN of AWS
+        Edge Location = Nearest caching server
+        POP = Infrastructure location for CDN , it could be anything edge location / regional edge server
+        Caching Server = Stores temporary content
+        Purpose = Faster delivery, lower cost, secure distribution
+
+        CloudFront makes websites load faster globally.
