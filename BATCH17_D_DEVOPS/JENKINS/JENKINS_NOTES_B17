@@ -395,16 +395,164 @@ TOMCAT
 </tomcat-users>
 
 
-==========
+
 ======================================================================================
 DATE: 14 APR 2026
 
-
-
-JENKINS UPGRADE :
-
+TOPICS: 
+JENKINS UPGRADE 
+JENKINS DISTRIBUTED MASTER -SLAVE ARCH 
+JENKINS RESTARTS 
 
 ====================================================================
+JENKINS UPGRADE & BACKUP 
+====================================================================
+
+--------------------------------------------------
+WHY DO WE UPGRADE JENKINS?
+--------------------------------------------------
+
+    • Security patches (very important)
+    • Bug fixes
+    • New features
+    • Plugin compatibility
+    • Performance improvements
+
+    Regular upgrade is mandatory in production.
+
+
+--------------------------------------------------
+WHAT IS jenkins.war?
+--------------------------------------------------
+
+    jenkins.war is the core Jenkins application file.
+
+    Location (Linux):
+
+        /usr/share/java/jenkins.war
+
+    Jenkins service runs using this WAR file.
+
+
+--------------------------------------------------
+IMPORTANT BEFORE UPGRADE
+--------------------------------------------------
+
+    ALWAYS take backup before upgrading.
+
+    Backup includes:
+
+        • jenkins.war file
+        • Jenkins home directory
+
+
+--------------------------------------------------
+STEP 1: BACKUP jenkins.war and delete the war 
+--------------------------------------------------
+
+    systemctl stop jenkins 
+
+    sudo cp -rp /usr/share/java/jenkins.war /usr/share/java/jenkins.war.bak_14apr2026
+    cd /usr/share/java/
+    rm -rf jenkins.war
+    
+--------------------------------------------------
+STEP 2: BACKUP JENKINS HOME
+--------------------------------------------------
+
+    Jenkins home contains:
+
+        • Jobs
+        • Configurations
+        • Plugins
+        • Credentials
+
+Location:
+
+    /var/lib/jenkins/
+
+Command:
+
+    sudo cp -r /var/lib/jenkins \
+        /var/lib/jenkins_backup
+
+
+--------------------------------------------------
+STEP 3: DOWNLOAD NEW JENKINS WAR
+--------------------------------------------------
+
+Command:
+   
+    cd /usr/share/java/
+
+    sudo wget https://get.jenkins.io/war/2.559/jenkins.war
+
+
+--------------------------------------------------
+STEP 5: RESTART JENKINS
+--------------------------------------------------
+
+Command:
+
+    sudo systemctl restart jenkins
+
+    Check status:
+
+        sudo systemctl status jenkins
+
+
+--------------------------------------------------
+STEP 6: VERIFY UPGRADE
+--------------------------------------------------
+
+    • Login to Jenkins UI
+    • Check version in dashboard
+    • Verify jobs are working
+
+
+--------------------------------------------------
+ROLLBACK (IF ISSUE OCCURS)
+--------------------------------------------------
+
+    Stop Jenkins:
+
+        sudo systemctl stop jenkins
+
+    Restore old WAR:
+
+        sudo mv /usr/share/java/jenkins.war.bak_14apr2026 \
+            /usr/share/java/jenkins.war
+
+    Start Jenkins:
+
+        sudo systemctl start jenkins
+
+
+--------------------------------------------------
+REAL DEVOPS BEST PRACTICE
+--------------------------------------------------
+
+    • Always test upgrade in staging first
+    • Backup before upgrade
+    • Check plugin compatibility
+    • Upgrade plugins after Jenkins upgrade
+    • Monitor logs after upgrade
+
+
+--------------------------------------------------
+IMPORTANT FILE LOCATIONS
+--------------------------------------------------
+
+    Jenkins WAR:
+        /usr/share/java/jenkins.war
+
+    Jenkins Home:
+        /var/lib/jenkins/
+
+    Logs:
+        /var/log/jenkins/jenkins.log
+
+=========================================================================================================================
 JENKINS DISTRIBUTED ARCHITECTURE (MASTER–AGENT)
 ====================================================================
 
