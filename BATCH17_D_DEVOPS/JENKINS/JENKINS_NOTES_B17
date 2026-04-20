@@ -795,5 +795,189 @@ from GUI:
 http://PUB_IP:8080/restart
 http://PUB_IP:8080/safeRestart
 
+================================================================================
+
+
+DATE : 17 APR 2026
+
+====================
+JENKINS PIPELINE 
+====================
+
+--------------------------------------------------
+WHAT IS JENKINS PIPELINE?
+--------------------------------------------------
+
+    Jenkins Pipeline is a way to define CI/CD
+    process as CODE.
+
+    Instead of manual UI steps (freestyle),
+    we write pipeline in a file called:
+
+        Jenkinsfile
+
+    It automates:
+
+        • Build
+        • Test
+        • Deploy
+
+
+--------------------------------------------------
+WHY PIPELINE IS REQUIRED?
+--------------------------------------------------
+
+    Problems with Freestyle Jobs:
+
+        • Manual configuration
+        • Hard to track changes
+        • Not reusable
+        • Difficult for complex workflows
+		. UI based 
+
+    Pipeline solves:
+
+        • Code-based configuration - Pipeline as Code
+        • Version control (Git)
+        • Easy automation
+        • Supports complex workflows
+        • Reusable
+        • Supports parallel execution
+        • Better visibility
+        • Easy automation
+        • Supports CI/CD fully
+       
+
+--------------------------------------------------
+WHAT IS JENKINSFILE?
+--------------------------------------------------
+
+    A file that contains pipeline code.
+
+    Stored in project repo (GitHub).
+
+Example:
+
+    pipeline {
+        agent any
+
+        stages {
+            stage('Build') {
+                steps {
+                    echo "Build started"
+                }
+            }
+        }
+    }
+
+
+--------------------------------------------------
+PIPELINE STAGES
+--------------------------------------------------
+
+    Typical stages:
+
+        • Checkout
+        • Build
+        • Test
+        • Package
+        • Deploy
+
+
+
+--------------------------------------------------
+TYPES OF PIPELINES
+--------------------------------------------------
+
+    1) Declarative Pipeline
+    2) Scripted Pipeline
+
+
+--------------------------------------------------
+1) DECLARATIVE PIPELINE
+--------------------------------------------------
+
+    Simple and structured syntax.
+
+    Uses predefined blocks:
+
+        pipeline { }
+        stages { }
+        steps { }
+
+Example:
+
+    pipeline {
+        agent any
+
+        stages {
+            stage('Build') {
+                steps {
+                    echo "Building app"
+                }
+            }
+
+            stage('Test') {
+                steps {
+                    echo "Testing app"
+                }
+            }
+        }
+    }
+
+
+
+--------------------------------------------------
+2) SCRIPTED PIPELINE
+--------------------------------------------------
+
+
+    node {
+        stage('Build') {
+            echo "Building app"
+        }
+
+        stage('Test') {
+            echo "Testing app"
+        }
+    }
+
+Features:
+
+    • Full programming control
+    • Complex logic possible
+    • Harder to understand
+
+
+
+--------------------------------------------------
+REAL DEVOPS USE CASE
+--------------------------------------------------
+
+    Developer pushes code → GitHub
+
+        ↓
+
+    Jenkins triggers pipeline
+
+        ↓
+
+    Build using Maven
+
+        ↓
+
+    Run tests
+
+        ↓
+
+    Build Docker image
+
+        ↓
+
+    Deploy to Kubernetes
+
+
+
+
 
 
