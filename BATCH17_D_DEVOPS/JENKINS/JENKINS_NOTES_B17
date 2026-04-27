@@ -1367,3 +1367,97 @@ http://your-jenkins-url/github-webhook/
 
 =================================================================================
 
+TOMCAT ROOT DEPLOYMENT NOTES
+
+Software: Apache Tomcat
+
+---
+
+## WHAT IS ROOT APPLICATION
+
+* ROOT is the default application in Tomcat
+* Location: webapps/ROOT/
+* Accessible at:
+  http://localhost:8080/
+
+---
+
+## NORMAL WAR DEPLOYMENT
+
+* If you place:
+  app.war  → runs as → http://localhost:8080/app
+
+---
+
+## DEPLOY APPLICATION AS ROOT
+
+* To run your app at root (/):
+
+Step:
+
+* Rename WAR file
+  app.war → ROOT.war
+
+* Copy into
+  tomcat/webapps/
+
+---
+
+## WHAT HAPPENS INTERNALLY
+
+Tomcat automatically:
+
+* Detects ROOT.war (autoDeploy = true)
+* Stops existing ROOT app
+* Deletes old ROOT/ folder
+* Extracts ROOT.war
+* Creates new ROOT/
+* Deploys your app at /
+
+---
+
+## IMPORTANT POINT
+
+* You DO NOT need to manually delete ROOT
+* Tomcat handles replacement automatically
+
+---
+
+## REAL-TIME PRACTICE (PRODUCTION)
+
+Common method:
+
+* Copy ROOT.war into webapps/
+* Tomcat auto deploys
+
+Clean deployment:
+
+* Stop Tomcat
+* Delete:
+  webapps/ROOT/
+  webapps/ROOT.war (old)
+* Copy new ROOT.war
+* Start Tomcat
+
+---
+
+## CONFIGURATION RELATED
+
+In server.xml:
+
+<Host autoDeploy="true" unpackWARs="true">
+
+* autoDeploy = enables hot deployment
+* unpackWARs = extracts WAR into folder
+
+---
+
+* ROOT is default app
+* ROOT.war replaces ROOT automatically
+* No manual deletion required in most cases
+* Used to run app at http://localhost:80
+
+
+
+
+
